@@ -1,7 +1,9 @@
 export default function HomeLayout({
   children,
+  modal,
 }: Readonly<{
   children: React.ReactNode;
+  modal: React.ReactNode;
 }>) {
   return (
     <div>
@@ -9,6 +11,7 @@ export default function HomeLayout({
       <div>
         <div>사이드 바</div>
         <main>{children}</main>
+        <div>{modal}</div>
       </div>
     </div>
   );
