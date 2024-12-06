@@ -29,6 +29,12 @@
     "emitDecoratorMetadata": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "custom.d.ts"
+  ],
   "exclude": ["node_modules", ".next", ".yarn", "dist", "**/*.(test|spec).ts"]
 }
