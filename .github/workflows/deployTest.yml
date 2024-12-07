@@ -1,0 +1,62 @@
+name: 'Deploy Simulation'
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+env:
+  VERSION: ${{ github.sha }}
+  NAME: go_cicd
+  DOCKER_IMAGE: ghcr.io/${{ github.actor == 'zzzRYT' && 'zzzryt' }}/your-repo
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up docker buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Cache docker layers
+        uses: actions/cache@v3
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ env.VERSION }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+
+      - name: Login to ghcr
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GIT }}
+
+      - name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          builder: ${{ steps.buildx.outputs.name }}
+          push: true
+          tags: ${{ env.DOCKER_IMAGE }}:pr-${{ github.event.number }}
+
+  deploy_simulation:
+    needs: build
+    name: Deploy Simulation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Login to ghcr
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GIT }}
+
+      - name: Simulate Docker run
+        run: |
+          echo "Simulating deployment..."
+          docker pull ${{ env.DOCKER_IMAGE }}:pr-${{ github.event.number }}
+          docker run --rm ${{ env.DOCKER_IMAGE }}:pr-${{ github.event.number }}
