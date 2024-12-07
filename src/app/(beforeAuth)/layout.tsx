@@ -1,14 +1,19 @@
-import * as style from './beforeAuth.css';
+import getHeadNavigate from '../_components/HeadNavigate/getHeadNavigate';
+
+interface BeforeAuthLayoutProps {
+  children: React.ReactNode;
+  modal: React.ReactNode;
+}
 
 export default function BeforeAuthLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+  modal,
+}: Readonly<BeforeAuthLayoutProps>) {
   return (
-    <div className={style.authContainer}>
-      <div className={style.authLeft}>꿀모아</div>
-      <div className={style.authRight}>{children}</div>
+    <div>
+      {getHeadNavigate({ location: 'beforeAuth' })}
+      <>{children}</>
+      <>{modal}</>
     </div>
   );
 }

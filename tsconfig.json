@@ -18,9 +18,23 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
-    }
+      "@/*": ["./src/*"],
+      "@public/*": ["./public/*"],
+      "@store/*": ["./src/store/*"]
+    },
+    "target": "ES2020",
+    "outDir": "./lib",
+    "rootDir": "./src",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "forceConsistentCasingInFileNames": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "custom.d.ts"
+  ],
+  "exclude": ["node_modules", ".next", ".yarn", "dist", "**/*.(test|spec).ts"]
 }

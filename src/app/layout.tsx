@@ -1,4 +1,6 @@
 import type { Metadata } from 'next';
+import * as style from './global.css';
+import { Provider } from 'jotai';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -12,7 +14,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <Provider>
+        <body className={style.container}>{children}</body>
+      </Provider>
     </html>
   );
 }
