@@ -5,7 +5,8 @@ on:
     types: [opened, synchronize, reopened]
 
 jobs:
-  build:
+  quality:
+    name: 'CI:Check quality'
     runs-on: ubuntu-22.04
     strategy:
       matrix:
