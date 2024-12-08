@@ -6,7 +6,6 @@ on:
 
 jobs:
   build:
-    name: 'CI: Check quality'
     runs-on: ubuntu-22.04
     strategy:
       matrix:
