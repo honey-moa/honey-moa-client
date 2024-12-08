@@ -11,17 +11,20 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
+      - name: preinstall
+        run: pnpm preinstall
 
-      - name: yarn Build
-        run: yarn build
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      
+      - name: Build Project
+        run: pnpm run build
 
       - name: Check typescript
-        run: yarn type:check
+        run: pnpm run type:check
 
       - name: Check prettier
-        run: yarn prettier
+        run: pnpm run prettier
 
       - name: Check eslint
-        run: yarn lint
+        run: pnpm run lint

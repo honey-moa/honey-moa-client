@@ -9,11 +9,8 @@ RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
 # Install dependencies based on the preferred package manager
-COPY ./package*.json /.yarnrc ./.yarnrc.yml ./.pnp.cjs ./.pnp.loader.mjs ./yarn.lock ./
-COPY ./.yarn ./.yarn
-
-RUN yarn install
-
+COPY package.json package-lock.json* pnpm-lock.yaml* .npmrc* ./
+RUN pnpm install
 
 # Rebuild the source code only when needed
 FROM base AS builder
@@ -26,7 +23,7 @@ COPY . .
 # Uncomment the following line in case you want to disable telemetry during the build.
 # ENV NEXT_TELEMETRY_DISABLED=1
 
-RUN yarn run build
+RUN pnpm run build
 
 # Production image, copy all the files and run next
 FROM base AS runner
