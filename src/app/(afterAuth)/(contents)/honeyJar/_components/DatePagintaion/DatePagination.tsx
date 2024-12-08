@@ -37,11 +37,17 @@ export default function DatePagination() {
           <option>비공개된 글</option>
         </select>
         <div className={style.changeYearWrapper}>
-          <button onClick={() => handleYearChange(year, 'prev')} className={style.changeYearIcon}>
+          <button
+            onClick={() => handleYearChange(year, 'prev')}
+            className={style.changeYearIcon}
+          >
             <LeftIcon />
           </button>
           <h2>{year}년도 꿀통</h2>
-          <button onClick={() => handleYearChange(year, 'next')} className={style.changeYearIcon}>
+          <button
+            onClick={() => handleYearChange(year, 'next')}
+            className={style.changeYearIcon}
+          >
             <RightIcon />
           </button>
         </div>

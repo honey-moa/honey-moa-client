@@ -36,5 +36,5 @@
     ".next/types/**/*.ts",
     "custom.d.ts"
   ],
-  "exclude": ["node_modules", ".next", ".yarn", "dist", "**/*.(test|spec).ts"]
+  "exclude": ["node_modules", ".next", "dist", "**/*.(test|spec).ts"]
 }

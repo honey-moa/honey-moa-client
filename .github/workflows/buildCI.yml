@@ -6,22 +6,33 @@ on:
 
 jobs:
   quality:
-    name: 'CI: Check quality'
-    runs-on: ubuntu-latest
+    name: 'CI:Check quality'
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        node-version: [20]
     steps:
-      - uses: actions/checkout@v3
-
+      - uses: actions/checkout@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: pnpm install
 
-      - name: yarn Build
-        run: yarn build
+      - name: Build Project
+        run: pnpm run build
 
       - name: Check typescript
-        run: yarn type:check
+        run: pnpm run type:check
 
       - name: Check prettier
-        run: yarn prettier
+        run: pnpm run prettier
 
       - name: Check eslint
-        run: yarn lint
+        run: pnpm run lint
